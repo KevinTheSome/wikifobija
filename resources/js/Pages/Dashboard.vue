@@ -9,6 +9,15 @@ const input = ref('# This is a heading \n this is a paragraph \n <br/> [A Link](
 
 const output = computed(() => marked(input.value))
 
+function saveMd(e) {
+    console.log(input.value)
+}
+
+function deleteMd(e) {
+    console.log(input.value)
+    input.value = ''
+}
+
 const update = debounce((e) => {
     input.value = e.target.value
 }, 100)
@@ -34,6 +43,12 @@ const update = debounce((e) => {
                         <div class="editor prose prose-slate">
                             <textarea class="input" :value="input" @input="update"></textarea>
                             <div class="output" v-html="output"></div>
+                        </div>
+                        <div class="grid justify-center content-center grid-cols-2 gap-5">
+                            <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
+                                v-on:click="saveMd(e)">Save</button>
+                            <button class="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded"
+                                v-on:click="deleteMd(e)">Delete</button>
                         </div>
 
                     </div>
