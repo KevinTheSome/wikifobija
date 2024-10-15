@@ -5,7 +5,7 @@ import { ref, computed } from 'vue'
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout.vue';
 import { Head } from '@inertiajs/vue3';
 
-const input = ref('# This is a heading')
+const input = ref('# This is a heading \n this is a paragraph \n <br/> [A Link](https://laravel.com)\n') //just a demo
 
 const output = computed(() => marked(input.value))
 
