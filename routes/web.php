@@ -2,13 +2,14 @@
 
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\PhobiaController;
+use App\Http\Controllers\PinController;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 
 Route::get('/', function () {
     return Inertia::render('Welcome', [
-        'aNumber' => 0,
+        'aNumber' => PhobiaController::getPhobiaCount(),
     ]);
 });
 
@@ -24,13 +25,19 @@ Route::middleware('auth')->group(function () {
 });
 
 Route::middleware('auth')->group(function () {
-    Route::get('/phobias', [PhobiaController::class, 'Index']);
+    Route::get('/phobias', [PhobiaController::class, 'Index'])->name('phobias');
     Route::get('/phobia/create', [PhobiaController::class, 'Make']);
-    Route::get('/phobia/{id}', [PhobiaController::class, 'Show']);
-
+    Route::get('/phobia/{id}', [PhobiaController::class, 'Show'])->name('phobia.show');
+    Route::get('/phobia/{id}/edit', [PhobiaController::class, 'edit']);
     Route::post('/phobia/{id}', [PhobiaController::class, 'update']);
     Route::delete('/phobia/{id}', [PhobiaController::class, 'delete']);
     Route::post('/phobia', [PhobiaController::class, 'create']);
+    Route::get('/phobias/search', [PhobiaController::class, 'search']);
+
+    Route::get('/pins/search', [PinController::class, 'search']);
+    Route::post('/pin', [PinController::class, 'newPin']);
+    Route::get('/pin', [PinController::class, 'Index']);
+    Route::post('/pin/delete', [PinController::class, 'delete']);
 });
 
 

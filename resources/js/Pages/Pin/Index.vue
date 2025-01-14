@@ -5,13 +5,18 @@ import { ref, computed } from 'vue'
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout.vue';
 import { Head, router, Link } from '@inertiajs/vue3';
 
-defineProps({ phobias: Object })
+const { phobia } = defineProps(
+    { 
+        phobias: Object 
+    }
+)
 
 const input = ref('')
 
 function search() {
-    router.get('/phobias/search', {search: input.value},{ replace: true })
-}   
+    router.get('/pins/search', {search: input.value},{ replace: true })
+}
+
 </script>
 
 <template>
@@ -21,7 +26,7 @@ function search() {
     <AuthenticatedLayout>
         <template #header>
             <h2 class="text-xl font-semibold leading-tight text-gray-800">
-                All Phobias
+                All pinned phobias
             </h2>
         </template>
 
@@ -31,8 +36,7 @@ function search() {
                 <input type="button" value="Search" v-on:click="search()" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
                 <div class="overflow-hidden bg-white shadow-sm sm:rounded-lg">
                     <div class="p-6 text-gray-900">
-                        <p v-if="phobias.length == 0">No results</p>
-                        <p v-else v-for="phobia in phobias">
+                        <p v-for="phobia in phobias">
                             <Link :href="/phobia/ + phobia.id">
                             {{ phobia.title }}
                             </Link>
