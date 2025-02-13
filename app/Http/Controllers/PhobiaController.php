@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Pin;
+use App\Models\Comment;
 use App\Models\Phobia;
 use Inertia\Inertia;
 
@@ -25,6 +26,11 @@ class PhobiaController extends Controller
         
     }
 
+    public function Random(Request $request){
+        $phobia = Phobia::inRandomOrder()->first();
+        return redirect()->route('phobia.show', $phobia->id);
+    }
+
     public function Make(Request $request){
         return Inertia::render('Phobia/Create');
     }
@@ -42,7 +48,7 @@ class PhobiaController extends Controller
     }
 
     public function Show(Request $request,$id){
-        return Inertia::render('Phobia/Show', ['phobia' => Phobia::find($id),'cantPin' => Pin::where('Phobia_id', $id)->where('User_id', $request->user()->id)->exists()]);
+        return Inertia::render('Phobia/Show', ['phobia' => Phobia::find($id),'cantPin' => Pin::where('Phobia_id', $id)->where('User_id', $request->user()->id)->exists(), 'pinCount' => Pin::where('Phobia_id', $id)->count(), 'comments' => Comment::where('Phobia_id', $id)->get()]);
     }
 
     public function update(Request $request, $id){

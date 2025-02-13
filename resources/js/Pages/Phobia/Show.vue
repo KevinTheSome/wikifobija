@@ -1,4 +1,6 @@
 <script setup>
+import comment  from '@/Components/Comment.vue'
+import commentInput  from '@/Components/CommentInput.vue'
 import { marked } from 'marked'
 import { debounce } from 'lodash-es'
 import { ref, computed } from 'vue'
@@ -7,16 +9,16 @@ import { Head, router, Link,usePage } from '@inertiajs/vue3';
 
 const page = usePage()
 
-
-const { phobia , cantPin } = defineProps({
+const { phobia, cantPin, pinCount, comments } = defineProps({
     phobia: Object,
-    cantPin: Boolean
+    cantPin: Boolean,
+    pinCount: Number,
+    comments: Object
 })
 
 const errorPin = computed(() => page.props.error)
 
-console.log(phobia)
-console.log(errorPin.value)
+console.log(comments)
 const output = marked(phobia.md)
 
 function pin(event) {
@@ -61,11 +63,24 @@ function unpin(event) {
 
                             <Link class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
                                 as="button" @click="pin()" v-if="!cantPin">Pin</Link>
-
+                                
                             <Link class="bg-blue-500 hover:bg-blue-200 text-white font-bold py-2 px-4 rounded "
                                 as="button" @click="unpin()" v-else>Unpin</Link>
+
+                            <p>Pins: {{ pinCount }}</p>
                         </div>
                         <p>{{ response }}</p>
+                    </div>
+                    <commentInput :phobia_id="phobia.id" />
+                    <div v-for="comment in comments">
+                        <comment>
+                            <template v-slot:name>
+                                <p>{{ comment.name }}</p>
+                            </template>
+                            <template v-slot:comment>
+                                <p>{{ comment.comment }}</p>
+                            </template>
+                        </comment>
                     </div>
                 </div>
             </div>

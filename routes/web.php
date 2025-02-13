@@ -3,6 +3,7 @@
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\PhobiaController;
 use App\Http\Controllers\PinController;
+use App\Http\Controllers\CommentController;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
@@ -26,6 +27,7 @@ Route::middleware('auth')->group(function () {
 
 Route::middleware('auth')->group(function () {
     Route::get('/phobias', [PhobiaController::class, 'Index'])->name('phobias');
+    Route::get('/random', [PhobiaController::class, 'Random']);
     Route::get('/phobia/create', [PhobiaController::class, 'Make']);
     Route::get('/phobia/{id}', [PhobiaController::class, 'Show'])->name('phobia.show');
     Route::get('/phobia/{id}/edit', [PhobiaController::class, 'edit']);
@@ -38,6 +40,9 @@ Route::middleware('auth')->group(function () {
     Route::post('/pin', [PinController::class, 'newPin']);
     Route::get('/pin', [PinController::class, 'Index']);
     Route::post('/pin/delete', [PinController::class, 'delete']);
+
+    Route::post('/comment', [CommentController::class, 'store']);
+    Route::post('/comment/delete', [CommentController::class, 'delete']);
 });
 
 
