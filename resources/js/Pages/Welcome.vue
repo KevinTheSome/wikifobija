@@ -1,72 +1,34 @@
 <script setup>
-import { Head, Link } from '@inertiajs/vue3';
-import { ref } from 'vue';
+import { Head, Link } from "@inertiajs/vue3";
+import { ref } from "vue";
 
-const isOpen = ref(false);
-function toggleMenu() {
-    isOpen.value = !isOpen.value;
-}
+import Footer from "@/Components/Footer.vue";
+import NavBar from "@/Components/NavBar.vue";
 </script>
 
 <template>
-
     <Head title="Welcome to wikiphobia" />
+    <NavBar />
 
-    <nav class="bg-[#efe8ff] p-4 flex items-center justify-between">
-        <!-- Brand -->
-        <div class="text-lg text-[#222222] font-bold">wikiphobia</div>
-
-        <!-- Hamburger Menu (visible on mobile) -->
-        <button class="block text-white lg:hidden" @click="toggleMenu">
-            <img src="/img/svg/menu.svg" alt="Hamburger Menu" />
-        </button>
-
-        <div v-if="$page.props.auth.user" class="hidden lg:flex space-x-6 text-white">
-            <a href="/random" class="text-[#222222] text-xl">Random</a>
-            <a href="/dashboard" class="text-[#222222] text-xl">Dashboard</a>
-            <Link href="/logout" method="post" class="text-[#222222] text-xl">Logout</Link>
-        </div>
-
-        <div v-else class="hidden lg:flex space-x-6 text-white">
-            <a href="/random" class="text-[#222222] text-xl">Random</a>
-            <a href="/login" class="hover:text-gray-600 text-[#222222] text-xl">Login</a>
-            <a href="/register" class="hover:text-gray-600 text-[#222222] text-xl">Register</a>
-        </div>
-
-    </nav>
-    <!-- mobile manu , humbarger what ever drop down thig :) -->
-    <div v-if="$page.props.auth.user">
-        <div v-if="isOpen" class="lg:hidden grid bg-[#e5e1ee] text-[#222222] p-4">
-            <a href="/random" class="text-[#222222] text-xl">Random</a>
-            <a href="/dashboard" class="text-[#222222] text-xl">Dashboard</a>
-            <Link href="/logout" method="post" class="text-[#222222] text-xl">Logout</Link>
-        </div>
-    </div>
-
-    <div v-else>
-        <div v-if="isOpen" class="lg:hidden grid bg-[#e5e1ee] text-[#222222] p-4">
-            <a href="/random" class="text-[#222222] text-xl">Random</a>
-            <a href="/login" class="text-[#222222] text-xl">Login</a>
-            <a href="/register" class="text-[#222222] text-xl">Register</a>
-        </div>
-    </div>
-
-    <section class="bg-[#f7f3ff] p-4 w-screen h-screen content-center">
-        <div class="grid content-center justify-center">
-            <div class="text-center">
-                <h1 class="text-3xl font-bold text-[#222222]">wikiphobia</h1>
-                <p class="text-xl text-[#222222]">Find wikiphobia pages with different phobias.</p>
-                <p class="text-l text-[#222222]">We have {{ $page.props.aNumber }} articls in our database.</p>
+    <section>
+        <div class="hero bg-base-200 min-h-screen">
+            <div class="hero-content flex-col lg:flex-row-reverse">
+                <div class="content-center justify-center">
+                    <h1 class="text-5xl text-center font-bold inline-block bg-gradient-to-r from-indigo-300 to-indigo-400 bg-clip-text text-7xl text-transparent">Wikiphobia</h1>
+                    <div class="content-center justify-center flex flex-col">
+                        <div class="flex flex-row">
+                            <p class="py-6">A wiki for phobia. We have </p>
+                            <p class="p-1 py-6 bg-gradient-to-r from-indigo-300 to-indigo-400 bg-clip-text text-transparent">{{ $page.props.aNumber }}</p>
+                            <p class="py-6"> articls in our database.</p>
+                        </div>
+                        <Link class="btn btn-primary" as="button" href="/login">Get Started</Link>
+                    </div>
+                </div>
             </div>
         </div>
     </section>
 
-    <footer>
-        <div class="bg-[#efe8ff] p-4">
-            <div class="text-center text-[#222222] text-xl">wikiphobia :)</div>
-        </div>
-    </footer>
-
+    <Footer />
 </template>
 
 <style>
