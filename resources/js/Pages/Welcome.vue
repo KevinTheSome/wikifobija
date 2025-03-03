@@ -19,7 +19,7 @@ import NavBar from "@/Components/NavBar.vue";
                         <div class="flex flex-row">
                             <p class="py-6">A wiki for phobia. We have </p>
                             <p class="p-1 py-6 bg-gradient-to-r from-indigo-300 to-indigo-400 bg-clip-text text-transparent">{{ $page.props.aNumber }}</p>
-                            <p class="py-6"> articls in our database.</p>
+                            <p class="py-6"> articals in our database.</p>
                         </div>
                         <Link class="btn btn-primary" as="button" href="/login">Get Started</Link>
                     </div>
