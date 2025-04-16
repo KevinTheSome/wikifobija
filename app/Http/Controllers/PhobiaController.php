@@ -38,7 +38,7 @@ class PhobiaController extends Controller
     public function search(Request $request)
     {
         $phobia = Phobia::where('title', 'like', "%{$request->input('search')}%")->get();
-        return Inertia::render('Phobia/Index', ['phobias' => $phobia ?? Property::all()]);
+        return Inertia::render('Phobia/Index', ['phobias' => $phobia ?? Phobia::all()]);
     }
 
     public function Index(Request $request){
