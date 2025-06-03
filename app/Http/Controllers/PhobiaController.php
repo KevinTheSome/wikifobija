@@ -48,7 +48,7 @@ class PhobiaController extends Controller
     }
 
     public function Show(Request $request,$id){
-        return Inertia::render('Phobia/Show', ['phobia' => Phobia::find($id),'cantPin' => Pin::where('Phobia_id', $id)->where('User_id', $request->user()->id)->exists(), 'pinCount' => Pin::where('Phobia_id', $id)->count(), 'comments' => Comment::where('Phobia_id', $id)->get()]);
+        return Inertia::render('Phobia/Show', ['phobia' => Phobia::find($id),'cantPin' => Pin::where('Phobia_id', $id)->where('User_id', $request->user()->id)->exists(), 'pinCount' => Pin::where('Phobia_id', $id)->count(), 'comments' => Comment::where('Phobia_id', $id)->join('users', 'comments.User_id', '=', 'users.id')->select('comments.*', 'users.name','','=','')->get()]);
     }
 
     public function update(Request $request, $id){
