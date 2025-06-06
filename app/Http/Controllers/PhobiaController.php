@@ -71,6 +71,14 @@ class PhobiaController extends Controller
 
     public function delete($id){
         $phobia = Phobia::find($id);
+        $pins = Pin::where('Phobia_id', $id)->get();
+        foreach($pins as $pin){
+            $pin->delete();
+        }
+        $comments = Comment::where('phobia_id', $id)->get();
+        foreach($comments as $comment){
+            $comment->delete();
+        }
         $phobia->delete();
         return redirect()->route('phobias');
     }

@@ -3,6 +3,7 @@
 namespace Database\Seeders;
 
 use App\Models\User;
+use App\Models\Phobia;
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 
@@ -21,5 +22,7 @@ class DatabaseSeeder extends Seeder
             'password' => 'admin@admin.admin',
             'role' => 'Admin',
         ]);
+        Phobia::factory(1)->create();
+        
     }
 }
