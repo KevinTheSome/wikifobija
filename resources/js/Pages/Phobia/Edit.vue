@@ -41,6 +41,7 @@ const update = debounce((e) => {
 
 <template>
     <Head title="Edit Phobia{{phobia.title}}" />
+    <link rel="icon" type="image/x-icon" href="./img/favicon.png" />
     <NavBar />
     <div class="flex w-full justify-center content-center">
         <h2
